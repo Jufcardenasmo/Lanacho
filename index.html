@@ -52,14 +52,25 @@
     </script>
   </head>
   <body>
-    <div id ="content"  >
-      <form name="log" action="insplacement.jsp" method="post">
-        <p>Origen</p><input type="text" name="origen" value="" size="20" Style ="margin-left: 10px"/><br>
-        <p>Destino:</p><input type="text" name="destino" value="" size="20" Style ="margin-left: 10px" /><br>
-        <input type="submit" value="Buscar" Style ="margin-left: 10px;margin-top: 10px"/>
-        <input type="reset" value="Limpiar"/>
-      </form>
-    </div>
-    <div id="viewDiv"></div>
+    	<table>
+      		<thead>
+        		<tr>
+          			<th>
+                        <div id ="content"  >
+                          <form name="log" action="insplacement.jsp" method="post">
+                            <p>Origen</p><input type="text" name="origen" value="" size="20" Style ="margin-left: 10px"/><br>
+                            <p>Destino:</p><input type="text" name="destino" value="" size="20" Style ="margin-left: 10px" /><br>
+                            <input type="submit" value="Buscar" Style ="margin-left: 10px;margin-top: 10px"/>
+                            <input type="reset" value="Limpiar"/>
+                          </form>
+                        </div>
+                  	</th>
+        			<th>
+        				<div id="viewDiv"></div>
+                  	</th>
+              	</tr>
+        
+          </thead>
+    </table>
   </body>
 </html>
