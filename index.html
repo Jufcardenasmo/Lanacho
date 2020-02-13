@@ -1,35 +1,80 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <!--
+  ArcGIS API for JavaScript, https://js.arcgis.com
+  For more information about the widgets-directions sample, read the original sample description at developers.arcgis.com.
+  https://developers.arcgis.com/javascript/latest/sample-code/widgets-directions/index.html
+  -->
+<title>Directions widget - 4.14</title>
+
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
+      html,
+      body,
+      #viewDiv {
         padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
       }
     </style>
-  </head>
-  <body>
-    <div id="map"></div>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.14/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.14/"></script>
+
     <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 4.638641, lng: -74.084294},
-          zoom: 16
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/widgets/Directions",
+        "esri/widgets/Track"
+      ], function(Map, MapView, Directions, Track) {
+        var map = new Map({
+          basemap: "topo-vector"
         });
-      }
+
+        var view = new MapView({
+          scale: 123456789,
+          container: "viewDiv",
+          map: map
+        });
+        
+        var track = new Track({
+          view: view
+        });
+        view.ui.add(track, "top-left");
+
+        // The sample will start tracking your location
+        // once the view becomes ready
+        view.when(function() {
+          track.start();
+        });
+
+        var directionsWidget = new Directions({
+          view: view,
+          // Point the URL to a valid route service that uses an
+          // ArcGIS Online hosted service proxy instead of the default service
+          routeServiceUrl:
+            "https://utility.arcgis.com/usrsvcs/appservices/srsKxBIxJZB0pTZ0/rest/services/World/Route/NAServer/Route_World"
+        });
+
+        // Add the Directions widget to the top right corner of the view
+        view.ui.add(directionsWidget, {
+          position: "top-right"
+        });
+        
+      });
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBieG4hN8DDnYolKj8vWhdb3-2oQkpRWes&callback=initMap"
-    async defer></script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
   </body>
 </html>
